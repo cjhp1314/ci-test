@@ -27,3 +27,21 @@ jobs:
 
       - name: build
         run: npm test
+
+      - name: Deploy to Server
+        uses: easingthemes/ssh-deploy@v3
+        env:
+            SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+            ARGS: "-avzr"
+            SOURCE: ""
+            REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
+            REMOTE_USER: "root"
+            TARGET: "/data/server/tmp"
+            EXCLUDE: "/dist/, /node_modules/"
+            SCRIPT_BEFORE: |
+              whoami
+              ls -al
+            SCRIPT_AFTER: |
+              whoami
+              ls -al
+              echo $RSYNC_STDOUT
