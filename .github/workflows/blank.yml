@@ -19,9 +19,11 @@ jobs:
         run: |
           echo Add other actions to build,
           echo test, and deploy your project.
-      - name set up to node
+
+      - name: set up to node
         uses: actions/setup-node@v2
         with:
           node-version: '14'
+
       - name: build
         run: npm test
